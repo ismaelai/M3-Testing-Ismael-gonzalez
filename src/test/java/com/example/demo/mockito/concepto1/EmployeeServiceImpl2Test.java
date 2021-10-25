@@ -6,6 +6,8 @@ import com.example.demo.service.EmployeeServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -43,34 +45,79 @@ class EmployeeServiceImpl2Test {
     void findAll() {
         // configuracion escenario mock
 
+        List<Employee> employees = Arrays.asList(
+                new Employee(1L,"X",40),
+                new Employee(  2L,"X",40),
+                new Employee(3L,"X",40)
+        );
+
+        when(repositoryMock.findAll()).thenReturn(employees);
+
         // ejecutar el comportamiento a testear
 
+        List<Employee> result = service.findAll();
+
         // Aserciones y verificaciones
+
+        assertNotNull(result);
+        assertEquals(3, result.size());
+
+        verify(repositoryMock).findAll();
+
     }
 
     @Test
     void findOne() {
+
+
     }
 
     @Test
     void findOneOptional() {
 
         // configuracion
-        // when(repositoryMock.findOne());
+        Employee employee = new Employee(1L, "e1", 24);
+
+        when(repositoryMock.findOne(anyLong())).thenReturn(employee);
+
         // comportamiento
         Optional<Employee> employeeOpt = service.findOneOptional(1L);
 
+        // verificar
+
+        assertTrue(employeeOpt.isPresent());
+
     }
+
 
     @Test
     void save() {
+
+        Employee employee = new Employee(1L, "e1", 43);
+        when(repositoryMock.save(any())).thenReturn(employee);
+
+        Employee result = service.save(employee);
+
+        assertNotNull(result);
+        assertEquals(1L, result.getId());
+        verify(repositoryMock).save(any());
     }
 
     @Test
     void delete() {
+
+        when(repositoryMock.delete(any())).thenReturn(true);
+
+        boolean result = service.delete(1L);
+
+        assertTrue(result);
+        verify(repositoryMock).delete(any());
     }
 
     @Test
     void deleteAll() {
+
+        service.deleteAll();
+        verify(repositoryMock).deleteAll();
     }
 }
