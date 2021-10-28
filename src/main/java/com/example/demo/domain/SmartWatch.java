@@ -16,7 +16,10 @@ public class SmartWatch extends SmartDevice{
 		this.monitor = monitor;
 	}
 
-	public HealthMonitor getMonitor() {
+    public SmartWatch(Long id, String huawei, RAM xxx, Battery battery, CPU cpu, boolean wifi, double v) {
+    }
+
+    public HealthMonitor getMonitor() {
 		return monitor;
 	}
 
