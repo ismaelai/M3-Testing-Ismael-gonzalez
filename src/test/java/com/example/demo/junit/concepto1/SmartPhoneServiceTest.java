@@ -8,11 +8,68 @@ import com.example.demo.domain.pieces.RAM;
 import com.example.demo.service.SmartPhoneServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SmartPhoneServiceTest {
 
-    @DisplayName("Comprobar excepción cuando el smartphone a guardar es nulo")
+    SmartPhoneServiceImpl service = new SmartPhoneServiceImpl();
+
+    @Test
+    void countSmartPhoneTest() {
+        Integer num = service.count();
+        assertNotNull(num);
+        assertEquals(3, num);
+    }
+
+    @Test
+    void findAllTest() {
+
+        List<SmartPhone> smartphones = service.findAll();
+        assertNotNull(smartphones);
+        assertEquals(3, smartphones.size());
+
+    }
+
+    @Test
+    void findAllNullTest() {
+
+        List<SmartPhone> smartwatches = service.findAll();
+        assertNotNull(smartwatches);
+        assertEquals(3, smartwatches.size());
+
+    }
+
+    @Test
+    void findOneTest() {
+        SmartPhone phone = service.findOne(1L);
+        assertNotNull(phone);
+        assertEquals(1L, phone.getId());
+    }
+
+
+    @Test
+    void findOneExceptionTest() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> service.findOne(null)
+        );
+    }
+
+
+    @Test
+    void findByWifiTest() {
+        List<SmartPhone> smartphones = service.findByWifi(true);
+
+        assertEquals(2, smartphones.size());
+        assertTrue(smartphones.get(0).getWifi());
+        for (SmartPhone smartphone : smartphones) {
+            assertTrue(smartphone.getWifi());
+        }
+    }
+
     @Test
     void saveNullTest(){
         SmartPhoneServiceImpl service = new SmartPhoneServiceImpl();
@@ -92,7 +149,6 @@ public class SmartPhoneServiceTest {
     @DisplayName("Comprobar id negativo, no se debería añadir un smartphone")
     @Test
     void saveNegativeIdTest(){
-        holaMundo();
         SmartPhoneServiceImpl service = new SmartPhoneServiceImpl();
 
         SmartPhone phone = new SmartPhone(-4L, "Smartphone pirata",
@@ -114,8 +170,9 @@ public class SmartPhoneServiceTest {
 
     }
 
-    private void holaMundo(){
-        System.out.println("Hola mundo");
+    @Test
+    void  getMaxSmartPhoneIdTest() {
+
     }
 
     @Test
