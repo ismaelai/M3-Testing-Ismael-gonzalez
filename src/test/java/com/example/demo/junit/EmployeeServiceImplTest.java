@@ -1,4 +1,4 @@
-package com.example.demo.mockito.concepto1;
+package com.example.demo.junit;
 
 import com.example.demo.domain.Employee;
 import com.example.demo.domain.SmartPhone;

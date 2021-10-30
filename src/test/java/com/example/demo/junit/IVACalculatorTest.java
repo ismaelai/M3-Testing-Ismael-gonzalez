@@ -1,4 +1,4 @@
-package com.example.demo.junit.concepto1;
+package com.example.demo.junit;
 
 import com.example.demo.service.IVACalculator;
 import org.junit.jupiter.api.Test;

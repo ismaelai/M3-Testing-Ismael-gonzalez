@@ -1,4 +1,4 @@
-package com.example.demo.mockito.concepto1;
+package com.example.demo.mockito;
 
 import com.example.demo.domain.Employee;
 import com.example.demo.repository.EmployeeRepository;
@@ -6,6 +6,9 @@ import com.example.demo.service.EmployeeService;
 import com.example.demo.service.EmployeeServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,6 +59,21 @@ public class EmployeeServiceImplMockTest {
         // aserciones
         assertNotNull(result);
         assertEquals(1, result.getId());
+
+    }
+
+    @Test
+    void findAll() {
+        List<Employee> employees = Arrays.asList(
+                new Employee(1L, "empleado 1", 40),
+                new Employee(2L, "empleado 2", 48)
+        );
+
+        when(repositoryMock.findAll()).thenReturn(employees);
+
+        List<Employee> result = service.findAll();
+        assertEquals(2, result.size());
+        verify(repositoryMock).findAll();
 
     }
 

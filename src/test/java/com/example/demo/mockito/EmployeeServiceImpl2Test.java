@@ -1,4 +1,4 @@
-package com.example.demo.mockito.concepto1;
+package com.example.demo.mockito;
 
 import com.example.demo.domain.Employee;
 import com.example.demo.repository.EmployeeRepositoryImpl;
@@ -69,6 +69,14 @@ class EmployeeServiceImpl2Test {
     @Test
     void findOne() {
 
+        Employee employee = new Employee();
+        when(repositoryMock.findOne(1L)).thenReturn(employee);
+
+        service.findOne(1L);
+
+        assertNotNull(employee);
+
+        verify(repositoryMock).findOne(anyLong());
 
     }
 
@@ -86,6 +94,7 @@ class EmployeeServiceImpl2Test {
         // verificar
 
         assertTrue(employeeOpt.isPresent());
+        verify(repositoryMock).findOne(anyLong());
 
     }
 
@@ -101,6 +110,19 @@ class EmployeeServiceImpl2Test {
         assertNotNull(result);
         assertEquals(1L, result.getId());
         verify(repositoryMock).save(any());
+    }
+
+    @Test
+    void saveEmployeeNullTest(){
+        Employee employee = new Employee(null, "NuevoEmpleado", 30);
+
+        when(repositoryMock.save(any())).thenReturn(null);
+
+        Employee result = service.save(employee);
+
+        assertNull(result);
+
+
     }
 
     @Test

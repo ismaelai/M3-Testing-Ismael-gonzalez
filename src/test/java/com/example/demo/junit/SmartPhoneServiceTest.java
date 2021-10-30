@@ -1,4 +1,4 @@
-package com.example.demo.junit.concepto1;
+package com.example.demo.junit;
 
 import com.example.demo.domain.SmartPhone;
 import com.example.demo.domain.pieces.Battery;

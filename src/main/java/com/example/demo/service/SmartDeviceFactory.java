@@ -9,6 +9,7 @@ public class SmartDeviceFactory {
 
 	private SmartDeviceFactory() {}
 
+
 	public static SmartDevice createByType(String type) {
 		
 //		return switch (type) {

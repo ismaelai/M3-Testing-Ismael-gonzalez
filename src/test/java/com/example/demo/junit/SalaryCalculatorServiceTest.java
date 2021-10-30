@@ -28,8 +28,9 @@ class SalaryCalculatorServiceTest {
     void SalaryCalculatorNotNull(){
         SalaryCalculatorService salaryCalculatorService = new SalaryCalculatorService(irpfCalculator,ivaCalculator);
         assertNotNull(salaryCalculatorService);
-
     }
+
+
 
     @Test
     void calculateSalary() {
