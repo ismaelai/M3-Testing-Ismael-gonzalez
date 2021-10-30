@@ -103,13 +103,48 @@ class EmployeeServiceImplTest {
 
     @Test
     void save() {
+
+        Employee employee = new Employee();
+        Employee result = service.save(employee);
+        assertNotNull(result);
+    }
+
+    @Test
+    void saveNullTest() {
+        Employee employee  = new Employee(null, "empleado null", 22);
+
+        assertEquals(3, service.count());
+        Employee result = service.save(employee);
+        assertEquals(4, service.count());
+        assertNotNull(result);
+        assertNotNull(result.getId());
+        assertEquals(4, result.getId());
+    }
+
+    @Test
+    void saveCeroIdTest() {
+        Employee employee  = new Employee(0L, "empledao cero", 33);
+        Employee result = service.save(employee);
+        assertNotNull(result);
+        assertNotNull(result.getId());
+        assertEquals(4, result.getId());
     }
 
     @Test
     void delete() {
+        boolean result = service.delete(1L);
+        assertTrue(result);
+    }
+
+    @Test
+    void deleteNullTest() {
+        boolean result = service.delete(null);
+        assertFalse(result);
     }
 
     @Test
     void deleteAll() {
+        service.deleteAll();
+        assertTrue(true);
     }
 }
